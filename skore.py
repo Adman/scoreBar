@@ -201,7 +201,6 @@ class Computer():
 
         x5 = rozdelx - self.surface.get_width() /2
         y5 = rozdely + (rozdely / 2) - self.surface.get_height() /2 + 20
-        print cas.get_size()
         self.surface.blit(cas, (0,0))
         self.screen.blit(self.surface, (x5, y5))
         
