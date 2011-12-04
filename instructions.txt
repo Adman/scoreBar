@@ -1,9 +1,1 @@
-SPACE      -> starts / pause stopwatch
-W          -> add score to human
-arrow up   -> add score to robot
-S          -> drawback human score
-arrow down -> drawback robot score
-r          -> reset stopwatch
-shift + r  -> reset score
-r          -> reset stopwatch
-arrow left -> change robot with human
+delete this
