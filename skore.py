@@ -15,10 +15,6 @@ scrsize = width,height = 600,400
 #os.environ['SDL_VIDEO_WINDOW_POS'] = '10, 25'
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
-
-
-
-
 fullscreen = False
 #self.fullscreen = not self.fullscreen
 
@@ -27,19 +23,16 @@ resolution = pygame.display.list_modes()[0]
 video_flags = (not fullscreen and RESIZABLE)
 screen = pygame.display.set_mode(resolution, video_flags)
 
-
-i = 0
-x = 100
-y = 100
-x2 = 200
-y2 = 200
-
 class Computer():
     def __init__(self, screen):
         self.skoreH = 0
         self.skoreR = 0
         self.screen = screen
 
+        self.w = 643
+        self.h = 126
+        self.surface = pygame.Surface((self.w, self.h))
+        self.surface.fill((0,0,0))
         time = pygame.time.Clock()
 
         font_path = "digital-7.ttf"
@@ -60,6 +53,8 @@ class Computer():
         done = False
         while not done:
             self.screen.fill((0,0,0))
+            self.surface.fill((0,0,0))
+
             mods = pygame.key.get_mods()
             
             for event in pygame.event.get():
@@ -179,10 +174,12 @@ class Computer():
         rozdelx = wherex / 2
         rozdely = wherey / 2
 
-        x5 = rozdelx - cas.get_width() /2
-        y5 = rozdely + (rozdely / 2) - cas.get_height() /2
-
-        self.screen.blit(cas, (x5, y5))
+        x5 = rozdelx - self.surface.get_width() /2
+        y5 = rozdely + (rozdely / 2) - self.surface.get_height() /2
+        print cas.get_size()
+        self.surface.blit(cas, (0,0))
+        self.screen.blit(self.surface, (x5, y5))
+        
         
 
        
