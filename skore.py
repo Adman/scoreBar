@@ -42,9 +42,14 @@ class Computer():
 
         time = pygame.time.Clock()
 
-        fontSize = 150        
+        font_path = "digital-7.ttf"
+
+        fontSize = 180
+        fontSizeClock = 150
         # initialize font
+
         self.reportFont = pygame.font.SysFont("Courier", fontSize, True, False)
+        self.reportFont2 = pygame.font.Font(font_path, fontSizeClock)
 
         self.on = False #wheter the stopwatch is running or not
         self.a = 0 # milliseconds from start
@@ -100,7 +105,7 @@ class Computer():
             t = time((self.a / 1000) / 3600, ((self.a / 1000) / 60 % 60), (self.a / 1000) % 60)
             h_o_s = str(self.a)[-3:][:2] # hundredth of a second
             t_string = ','.join((t.strftime("%H:%M:%S"), h_o_s))
-            tempsurface = self.reportFont.render(t_string, True, THECOLORS["white"])
+            tempsurface = self.reportFont2.render(t_string, True, THECOLORS["white"])
 
             self.print_time(tempsurface)
             self.print_skore(self.skoreH, self.skoreR)
@@ -154,9 +159,9 @@ class Computer():
 
         # vzorce pre skore
         x = rozdelx2 - widthSH
-        y = rozdely2 
+        y = rozdely2
         x2 = rozdelx + (rozdelx / 2) - widthSR
-        y2 = rozdely2
+        y2 = rozdely2 
 
         x3 = rozdelx - widthDvojb
         y3 = rozdely2
