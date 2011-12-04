@@ -29,8 +29,12 @@ class Computer():
         self.skoreR = 0
         self.screen = screen
 
-        self.w = 643
-        self.h = 126
+        self.change = False
+        self.posH = 0
+        self.posR = 1
+
+        self.w = 516
+        self.h = 101
         self.surface = pygame.Surface((self.w, self.h))
         self.surface.fill((0,0,0))
         time = pygame.time.Clock()
@@ -38,9 +42,8 @@ class Computer():
         font_path = "digital-7.ttf"
 
         fontSize = 180
-        fontSizeClock = 150
+        fontSizeClock = 120
         # initialize font
-
         self.reportFont = pygame.font.SysFont("Courier", fontSize, True, False)
         self.reportFont2 = pygame.font.Font(font_path, fontSizeClock)
 
@@ -48,6 +51,8 @@ class Computer():
         self.a = 0 # milliseconds from start
         start_tick = 0
 
+
+        
         
     def run(self):
         done = False
@@ -74,6 +79,17 @@ class Computer():
                         self.skoreR -= 1
                     elif event.key == K_s:
                         self.skoreH -= 1
+
+                    elif event.key == K_LEFT:
+                        if not self.change:
+                            self.posH = 1
+                            self.posR = 0
+                            self.change = True
+                        else:
+                            self.posH = 0
+                            self.posR = 1
+                            self.change = False
+                        
 
                     if event.key == K_r:
                         self.a = 0
@@ -105,6 +121,7 @@ class Computer():
             self.print_time(tempsurface)
             self.print_skore(self.skoreH, self.skoreR)
 
+            
             pygame.display.flip()
             pygame.time.wait(100)
             
@@ -113,18 +130,20 @@ class Computer():
 
     def print_skore(self, skoreH, skoreR):
         #texts
-        robotText = 'Robot'
-        humanText = 'Human'
-        skoreHuman = '%d' % skoreH
-        skoreRobot = '%d' % skoreR
-        dvojbText = ':'
+        self.robotText = 'Robot'
+        self.humanText = 'Human'
+        self.skoreHuman = '%d' % self.skoreH
+        self.skoreRobot = '%d' % self.skoreR
+        self.dvojbText = ':'
+
+        
 
         # render text to font
-        skoreHBlit = self.reportFont.render(skoreHuman, True, (255, 255, 255))
-        skoreRBlit = self.reportFont.render(skoreRobot, True, (255, 255, 255))
-        humanBlit = self.reportFont.render(humanText, True, (255, 255, 255))
-        robotBlit = self.reportFont.render(robotText, True, (255, 255, 255))
-        dvojbBlit = self.reportFont.render(dvojbText, True, (255, 255, 255))
+        skoreHBlit = self.reportFont.render(self.skoreHuman, True, (255, 255, 255))
+        skoreRBlit = self.reportFont.render(self.skoreRobot, True, (255, 255, 255))
+        humanBlit = self.reportFont.render(self.humanText, True, (255, 255, 255))
+        robotBlit = self.reportFont.render(self.robotText, True, (255, 255, 255))
+        dvojbBlit = self.reportFont.render(self.dvojbText, True, (255, 255, 255))
 
         widthH = humanBlit.get_width() / 2
         widthR = robotBlit.get_width() / 2 
@@ -138,8 +157,12 @@ class Computer():
         rozdely = wherey / 2
 
         # blits titles
-        self.screen.blit(humanBlit, (rozdelx - (rozdelx / 2) - widthH, wherey / 10 - 30))
-        self.screen.blit(robotBlit, (rozdelx + (rozdelx / 2) - widthR, wherey / 10 - 30))
+        if self.posH == 0 and self.posR == 1:
+            self.screen.blit(humanBlit, (rozdelx - (rozdelx / 2) - widthH, wherey / 10 - 30))
+            self.screen.blit(robotBlit, (rozdelx + (rozdelx / 2) - widthR, wherey / 10 - 30))
+        elif self.posH == 1 and self.posR == 0:
+            self.screen.blit(robotBlit, (rozdelx - (rozdelx / 2) - widthH, wherey / 10 - 30))
+            self.screen.blit(humanBlit, (rozdelx + (rozdelx / 2) - widthR, wherey / 10 - 30))
         #-------------------------------------------------------------
         # skore
         rozdelx2 = wherex / 2 / 2
@@ -162,9 +185,15 @@ class Computer():
         y3 = rozdely2
         
         # blit skore
-        self.screen.blit(skoreHBlit, (x , y))
-        self.screen.blit(skoreRBlit, (x2, y2))
-        self.screen.blit(dvojbBlit, (x3, y3))
+        if self.posH == 0 and self.posR == 1:
+            self.screen.blit(skoreHBlit, (x , y+40))
+            self.screen.blit(skoreRBlit, (x2, y2+40))
+        elif self.posH == 1 and self.posR == 0:
+            self.screen.blit(skoreRBlit, (x , y+40))
+            self.screen.blit(skoreHBlit, (x2, y2+40))
+
+
+        self.screen.blit(dvojbBlit, (x3, y3+40))
 
     def print_time(self, cas):
         wherex = self.screen.get_size()[0]
@@ -175,8 +204,8 @@ class Computer():
         rozdely = wherey / 2
 
         x5 = rozdelx - self.surface.get_width() /2
-        y5 = rozdely + (rozdely / 2) - self.surface.get_height() /2
-
+        y5 = rozdely + (rozdely / 2) - self.surface.get_height() /2 + 20
+        print cas.get_size()
         self.surface.blit(cas, (0,0))
         self.screen.blit(self.surface, (x5, y5))
         
