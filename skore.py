@@ -90,7 +90,6 @@ class Computer():
                             self.posR = 1
                             self.change = False
                         
-
                     if event.key == K_r:
                         self.a = 0
                         self.on = False
@@ -125,8 +124,6 @@ class Computer():
             pygame.display.flip()
             pygame.time.wait(100)
             
-            
-
 
     def print_skore(self, skoreH, skoreR):
         #texts
@@ -137,7 +134,6 @@ class Computer():
         self.dvojbText = ':'
 
         
-
         # render text to font
         skoreHBlit = self.reportFont.render(self.skoreHuman, True, (255, 255, 255))
         skoreRBlit = self.reportFont.render(self.skoreRobot, True, (255, 255, 255))
