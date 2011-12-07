@@ -1,3 +1,4 @@
+# -*- coding: cp1250 -*-
 import pygame, random, os, sys
 from datetime import time
 from pygame.locals import *
@@ -126,7 +127,7 @@ class Computer():
             t = time((self.a / 1000) / 3600, ((self.a / 1000) / 60 % 60), (self.a / 1000) % 60)
             h_o_s = str(self.a)[-3:][:2] # hundredth of a second
             t_string = ','.join((t.strftime("%H:%M:%S"), h_o_s))
-            tempsurface = self.reportFont2.render(t_string, True, THECOLORS["white"])
+            tempsurface = self.reportFont2.render(t_string, True, (255, 204, 0))
             
             self.print_time(tempsurface)
             self.print_skore(self.skoreH, self.skoreR)
@@ -148,8 +149,8 @@ class Computer():
         # render text to font
         skoreHBlit = self.reportFontS.render(self.skoreHuman, True, (255, 255, 255))
         skoreRBlit = self.reportFontS.render(self.skoreRobot, True, (255, 255, 255))
-        humanBlit = self.reportFont.render(self.humanText, True, (255, 255, 255))
-        robotBlit = self.reportFont.render(self.robotText, True, (255, 255, 255))
+        humanBlit = self.reportFont.render(self.humanText, True, (0, 51, 200))
+        robotBlit = self.reportFont.render(self.robotText, True, (204, 0, 0))
         dvojbBlit = self.reportFontS.render(self.dvojbText, True, (255, 255, 255))
 
         widthH = humanBlit.get_width() / 2
