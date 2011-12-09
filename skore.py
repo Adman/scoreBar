@@ -139,8 +139,8 @@ class Computer():
 
     def print_skore(self, skoreH, skoreR):
         #texts
-        self.robotText = 'Robot'
-        self.humanText = 'Human'
+        self.robotText = 'Human'
+        self.humanText = 'Robot'
         self.skoreHuman = '%d' % self.skoreH
         self.skoreRobot = '%d' % self.skoreR
         self.dvojbText = ':'
